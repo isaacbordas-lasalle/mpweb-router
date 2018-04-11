@@ -1,0 +1,20 @@
+{
+    "name": "mpweb/router",
+    "description": "Router PHP",
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": "^7.1",
+        "phpunit/phpunit": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Router\\": "src/Router/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RouterTest\\": "test/RouterTest/"
+        }
+    }
+}
