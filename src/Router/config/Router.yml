@@ -1,0 +1,6 @@
+# Routes
+homepage:
+    path: /
+
+postId:
+    path: /post/{1}
