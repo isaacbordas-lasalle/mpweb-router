@@ -3,7 +3,6 @@
 namespace Router;
 
 use Symfony\Component\Yaml\Yaml;
-use Exception;
 
 class Router
 {
@@ -12,15 +11,9 @@ class Router
     public function __construct($uri)
     {
         $this->uri = $uri;
-        if($this->match()) {
-            print "Match de la ruta " . $uri;
-        } else {
-            print "Ruta '" . $uri . "' no válida";
-        }
-
     }
 
-    public function variableExtractor($regexUri)
+    public function variableExtractor(string $regexUri)
     {
         $params = [];
 
@@ -49,7 +42,7 @@ class Router
             return false;
         }
 
-        return true;
+        return $keyParams[1];
 
     }
 
@@ -58,8 +51,8 @@ class Router
         $yaml = Yaml::parseFile(dirname(__FILE__) . '/config/Router.yml');
         
         foreach ($yaml as $route) {
-            if ($this->variableExtractor($route['path'])) {
-                return true;
+            if ($result = $this->variableExtractor($route['path'])) {
+                return $result;
             } 
         }
         

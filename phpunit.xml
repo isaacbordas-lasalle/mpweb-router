@@ -12,11 +12,4 @@
         stopOnFailure="false"
         syntaxCheck="false"
         bootstrap="vendor/autoload.php">
-
-    <testsuites>
-        <testsuite name="example">
-            <directory>test/RouterTest</directory>
-        </testsuite>
-    </testsuites>
-
 </phpunit>
