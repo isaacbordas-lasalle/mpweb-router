@@ -8,11 +8,6 @@ use Router\Router;
 class RouterTest extends PHPUnit\Framework\TestCase
 {
 
-    protected function tearDown()
-    {
-        $router = NULL;
-    }
-
     /** @test */
     public function shouldMatchRoute()
     {
@@ -22,27 +17,43 @@ class RouterTest extends PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function shouldNotMatchRouteByMissingFinalSlash()
+    public function shouldNotMatchRouteIfMissingFinalSlash()
     {
         $router = new Router('/post/1');
         $result = $router->match();
-        $this->assertEquals(0, $result, 'shouldNotMatchRouteByMissingFinalSlash');
+        $this->assertEquals(0, $result, 'shouldNotMatchRouteIfMissingFinalSlash');
     }
 
     /** @test */
-    public function shouldNotMatchRouteByParamNotInteger()
+    public function shouldNotMatchRouteIfParamNotInteger()
     {
         $router = new Router('/post/aaa/');
         $result = $router->match();
-        $this->assertEquals(0, $result, 'shouldNotMatchRouteByParamNotInteger');
+        $this->assertEquals(0, $result, 'shouldNotMatchRouteIfParamNotInteger');
     }
 
     /** @test */
-    public function shouldNotMatchRouteByTooManyParams()
+    public function shouldNotMatchRouteIfTooManyParams()
     {
         $router = new Router('/post/aaa/bbb/1/');
         $result = $router->match();
-        $this->assertEquals(0, $result, 'shouldNotMatchRouteByTooManyParams');
+        $this->assertEquals(0, $result, 'shouldNotMatchRouteIfTooManyParams');
+    }
+    
+    /** @test */
+    public function shouldNotMatchRouteIfNoParams()
+    {
+        $router = new Router('/post/');
+        $result = $router->match();
+        $this->assertEquals(0, $result, 'shouldNotMatchRouteIfNoParams');
+    }
+    
+    /** @test */
+    public function shouldNotMatchRouteIfEmpty()
+    {
+        $router = new Router('');
+        $result = $router->match();
+        $this->assertEquals(0, $result, 'shouldNotMatchRouteIfEmpty');
     }
 
 }
