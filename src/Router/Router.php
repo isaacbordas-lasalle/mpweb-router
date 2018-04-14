@@ -3,6 +3,7 @@
 namespace Router;
 
 use Symfony\Component\Yaml\Yaml;
+use Router\Exception\{NotRouteFoundException, NotIntegerParamException};
 
 class Router
 {
@@ -39,7 +40,7 @@ class Router
         }
 
         if(!preg_match('(\d+)', $keyParams[1])){
-            return false;
+            throw NotIntegerParamException::empty();
         }
 
         return $keyParams[1];
@@ -55,8 +56,8 @@ class Router
                 return $result;
             } 
         }
-        
-        return false;
+
+        throw NotRouteFoundException::empty();
 
     }
     
