@@ -4,7 +4,7 @@ namespace RouterTest;
 
 use PHPUnit\Framework\TestCase;
 use Router\Router;
-use Router\Exception\{NotRouteFoundException, NotIntegerParamException};
+use Router\Exception\{NotRouteFoundException, NotIntegerParamException, EmptyUriException};
 
 class RouterTest extends TestCase
 {
@@ -18,7 +18,7 @@ class RouterTest extends TestCase
     }
 
     /** @test */
-    public function shouldNotMatchRouteIfMissingFinalSlash()
+    public function shouldThrowNotRouteFoundExceptionIfMissingFinalSlash()
     {
         $router = new Router('/post/1');
         $this->expectException(NotRouteFoundException::class);
@@ -26,7 +26,7 @@ class RouterTest extends TestCase
     }
 
     /** @test */
-    public function shouldNotMatchRouteIfParamNotInteger()
+    public function shouldThrowNotIntegerParamExceptionIfParamNotInteger()
     {
         $router = new Router('/post/aaa/');
         $this->expectException(NotIntegerParamException::class);
@@ -34,7 +34,7 @@ class RouterTest extends TestCase
     }
 
     /** @test */
-    public function shouldNotMatchRouteIfTooManyParams()
+    public function shouldThrowNotRouteFoundExceptionIfTooManyParams()
     {
         $router = new Router('/post/aaa/bbb/1/');
         $this->expectException(NotRouteFoundException::class);
@@ -42,7 +42,7 @@ class RouterTest extends TestCase
     }
     
     /** @test */
-    public function shouldNotMatchRouteIfNoParams()
+    public function shouldThrowNotRouteFoundExceptionIfNoParams()
     {
         $router = new Router('/post/');
         $this->expectException(NotRouteFoundException::class);
@@ -50,10 +50,10 @@ class RouterTest extends TestCase
     }
     
     /** @test */
-    public function shouldNotMatchRouteIfEmpty()
+    public function shouldThrowEmptyUriExceptionIfEmpty()
     {
         $router = new Router('');
-        $this->expectException(NotRouteFoundException::class);
+        $this->expectException(EmptyUriException::class);
         $router->match();
     }
 

@@ -3,7 +3,7 @@
 namespace Router;
 
 use Symfony\Component\Yaml\Yaml;
-use Router\Exception\{NotRouteFoundException, NotIntegerParamException};
+use Router\Exception\{NotRouteFoundException, NotIntegerParamException, EmptyUriException};
 
 class Router
 {
@@ -16,6 +16,11 @@ class Router
 
     public function variableExtractor(string $regexUri)
     {
+
+        if(empty($this->uri)){
+            throw EmptyUriException::empty();
+        }
+
         $params = [];
 
         preg_match_all('\'' . '{(\w+)}' . '\'', $regexUri, $matches);
