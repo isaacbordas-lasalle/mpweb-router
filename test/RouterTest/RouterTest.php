@@ -2,11 +2,11 @@
 
 namespace RouterTest;
 
-use PHPUnit;
+use PHPUnit\Framework\TestCase;
 use Router\Router;
 use Router\Exception\{NotRouteFoundException, NotIntegerParamException};
 
-class RouterTest extends PHPUnit\Framework\TestCase
+class RouterTest extends TestCase
 {
 
     /** @test */
